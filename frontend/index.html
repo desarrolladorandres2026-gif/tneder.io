@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Prueba de conexión educativa: consulta tu IP pública, ubicación aproximada por IP y datos GPS si decides compartirlos.">
+  <title>TNEDER // Prueba de Conexión</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="grid-overlay" aria-hidden="true"></div>
+
+  <header class="hud-header">
+    <div class="logo">
+      <svg viewBox="0 0 24 24" width="28" height="28" aria-hidden="true">
+        <path d="M12 2 L22 20 H2 Z" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <circle cx="12" cy="14" r="3" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <line x1="12" y1="11" x2="12" y2="6" stroke="currentColor" stroke-width="1.5"/>
+      </svg>
+      <span>TNEDER<span class="blink">_</span></span>
+    </div>
+    <div class="hud-status" id="hudStatus">SISTEMA INACTIVO</div>
+  </header>
+
+  <!-- PANTALLA DE INICIO -->
+  <main id="homeScreen" class="screen active">
+    <section class="card intro-card">
+      <h1>PRUEBA DE CONEXIÓN</h1>
+      <p class="subtitle">Protocolo de diagnóstico remoto // modo educativo</p>
+
+      <div class="notice">
+        <strong>TRANSPARENCIA TOTAL:</strong>
+        <ul>
+          <li>Esta prueba consulta tu <strong>IP pública</strong> y deriva una <strong>ubicación aproximada</strong> (basada en IP, no en GPS).</li>
+          <li>Ni tu nombre ni tu dirección exacta se obtienen ni se almacenan.</li>
+          <li>La geolocalización por IP es <strong>estimada</strong> y puede variar varios kilómetros.</li>
+          <li>Solo con <strong>tu permiso explícito</strong> (botón abajo) se usará tu GPS real.</li>
+        </ul>
+      </div>
+
+      <div class="actions">
+        <button id="startBtn" class="btn-primary">INICIAR PRUEBA</button>
+      </div>
+    </section>
+  </main>
+
+  <!-- PANTALLA DE ANALISIS -->
+  <main id="analyzingScreen" class="screen">
+    <section class="card analyzer-card">
+      <h2>ANALIZANDO CONEXIÓN...</h2>
+      <div class="radar" aria-hidden="true">
+        <div class="radar-ring r1"></div>
+        <div class="radar-ring r2"></div>
+        <div class="radar-ring r3"></div>
+        <div class="radar-sweep"></div>
+        <div class="radar-core"></div>
+      </div>
+      <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="progress-fill" id="progressFill"></div>
+      </div>
+      <p class="step-log" id="stepLog">Inicializando protocolo...</p>
+    </section>
+  </main>
+
+  <!-- PANTALLA DE RESULTADOS -->
+  <main id="resultScreen" class="screen">
+    <section class="card dashboard">
+      <h2>RESULTADO DEL ANÁLISIS</h2>
+      <p class="timestamp" id="resultTimestamp">--</p>
+
+      <div class="grid-cards">
+        <div class="data-card">
+          <span class="label">IP PÚBLICA</span>
+          <span class="value mono" id="dataIp">--</span>
+        </div>
+        <div class="data-card">
+          <span class="label">PAÍS</span>
+          <span class="value" id="dataCountry">--</span>
+        </div>
+        <div class="data-card">
+          <span class="label">REGIÓN / DEPARTAMENTO</span>
+          <span class="value" id="dataRegion">--</span>
+        </div>
+        <div class="data-card">
+          <span class="label">CIUDAD (APROX.)</span>
+          <span class="value" id="dataCity">--</span>
+        </div>
+        <div class="data-card">
+          <span class="label">ISP / ORGANIZACIÓN</span>
+          <span class="value" id="dataIsp">--</span>
+        </div>
+        <div class="data-card">
+          <span class="label">ZONA HORARIA</span>
+          <span class="value mono" id="dataTimezone">--</span>
+        </div>
+        <div class="data-card">
+          <span class="label">COORDS. APROX. (IP)</span>
+          <span class="value mono" id="dataIpCoords">--</span>
+        </div>
+        <div class="data-card gps-card" id="gpsCard">
+          <span class="label">COORDS. GPS <span class="tag-gps">GPS</span></span>
+          <span class="value mono" id="dataGps">--</span>
+          <p class="hint" id="gpsHint">No compartido</p>
+        </div>
+      </div>
+
+      <div class="actions result-actions">
+        <button id="gpsBtn" class="btn-secondary">COMPARTIR UBICACIÓN GPS</button>
+        <button id="sendBtn" class="btn-secondary">ENVIAR RESULTADOS AL SERVIDOR</button>
+        <button id="retryBtn" class="btn-ghost">REPETIR PRUEBA</button>
+      </div>
+      <p class="disclaimer">Los datos mostrados no salen de tu navegador hasta que confirmes su envío. Ver consola del proyecto para más detalles.</p>
+    </section>
+  </main>
+
+  <footer class="hud-footer">
+    <span>TNEDER NETWORK PROTOCOL v1.0</span>
+    <span id="footerClock">00:00:00</span>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="app.js"></script>
+</body>
+</html>
